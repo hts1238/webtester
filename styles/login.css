@@ -1,0 +1,194 @@
+@import url('../fonts/Montserrat.css');
+
+#sign_page {
+    font-family: "Montserrat";
+}
+
+#sign_page {
+    margin: 0;
+    padding: 1px 0;
+    background-color: #0000;
+}
+
+#sign_page * {
+    color: #000;
+}
+
+#sign_page h1 {
+    font-weight: bold;
+    font-size: 2.5rem;
+    line-height: 1.2;
+}
+
+#sign_page p {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+}
+
+#sign_page button {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+#sign_page button {
+    background-color: #ff4b2b;
+    border-width: 0px;
+    padding: 10px 25px;
+    color: #fff;
+    border-radius: 20px;
+    
+    transition: 0.5s;
+}
+
+#sign_page button:active {
+    transform: scale(0.8);
+}
+
+#sign_page button:focus {
+    outline: none;
+    color: black;
+}
+
+#sign_page #before button {
+    background-color: #fff0;
+    border: 1px solid #fff;
+}
+
+#sign_page > div {
+    height: 550px;
+    width: 900px;
+    max-width: 100%;
+    min-width: 550px;
+    
+    background-color: white;
+    margin: 40px auto;
+    border-radius: 20px;
+    box-shadow: 0 14px 28px #0004, 0 10px 10px #0004;
+    
+    position: relative;
+    transition: 0.6s ease-in-out;
+    overflow: hidden;
+}
+
+#sign_page #sign_in {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    z-index: 2;
+    
+    background-color: #ffff;
+    transition: 0.6s ease-in-out;
+}
+
+#sign_page #sign_up {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    z-index: 1;
+    
+    background-color: #ffff;
+    transition: 0.6s ease-in-out;
+}
+
+#sign_page form {
+    position: absolute;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#sign_page form > * {
+    display: block;
+    margin: 0;
+}
+
+#sign_page form > #icons {
+    height: 40px;
+    width: 158px;
+    border: 1px solid #ff4b2b;
+    border-radius: 20px;
+    margin: 20px 0;
+}
+
+#sign_page form > span {
+    font-size: 12px;
+    color: #212529;
+}
+
+#sign_page form > input {
+    width: 70%;
+    margin: 8px 0;
+    background-color: #eee;
+    border-radius: 10px;
+    border-width: 0;
+    padding: 12px 15px;
+}
+
+#sign_page form > a {
+    color: #07f;
+    text-decoration: none;
+    font-size: 14px;
+    margin: 15px 0;
+}
+
+#sign_page #before {
+    position: absolute;
+    left: 50%;
+    height: 100%;
+    width: 50%;
+    z-index: 3;
+    
+    background: linear-gradient(to right, #ff4b2b, #ff416c);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    
+    overflow: hidden;
+    transition: 0.6s ease-in-out;
+}
+
+#sign_page #before > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    
+    transition: 0.6s ease-in-out;
+}
+
+#sign_page #before h1 {
+    margin: 0;
+}
+
+#sign_page #before p {
+    margin: 10px 10px 40px;
+    text-align: center;
+}
+
+#sign_page #before #left {
+    left: -110%;
+}
+
+#sign_page #before #right {
+    left: 0;
+}
+
+#sign_page #before * {
+    color: #fff;
+}
