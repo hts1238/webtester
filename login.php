@@ -3,7 +3,6 @@
 // login.php {error | null | type=new name login first_password second_password | type=login login password} => redirect (login.php {error}, tasks.php) or show error
 
 include_once("functions.php");
-include_once("templates/header.html");
 
 
 if (isset($_COOKIE["session"]) && isset($_COOKIE["login"]) && checksession($_COOKIE["login"], $_COOKIE["session"])) {
@@ -54,7 +53,7 @@ else if (($_POST["type"] ?? "") == "login") {
 }
 else {
     $error = $_GET["error"] ?? "";
+    include_once("templates/header.html");
     include_once("templates/login.html");
+    include_once("templates/footer.html");
 }
-
-include_once("templates/footer.html");
