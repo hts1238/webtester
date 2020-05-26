@@ -3,6 +3,8 @@
 // task.php
 
 include_once("functions.php");
+$islogin = true;
+include_once("templates/header.html");
 
 if(!isset($_COOKIE["session"]) || !isset($_COOKIE["login"]) || !checksession($_COOKIE["login"], $_COOKIE["session"])) {
     header("Location: login");
@@ -26,3 +28,6 @@ else if (isset($_GET["id"])) {
         include_once("templates/task.html");
     }
 }
+
+
+include_once("templates/footer.html");

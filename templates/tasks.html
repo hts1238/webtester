@@ -1,16 +1,20 @@
 <?php
 
-echo "<h1 style='color: red;'>$error</h1>";
+echo '<link rel="stylesheet" href="styles/task.css"><main>';
+
+//echo "<h1 style='color: red;'>$error</h1>";
 
 if ($login == "admin") {
     echo '
-        <h1>Add task</h1>
-        <form method="POST" action="addtask">
-            <input type="text" name="name" placeholder="Name"><br>
-            <input type="text" name="description" placeholder="Description"><br>
-            <input type="text" name="picture" placeholder="Picture"><br>
-            <input type="submit">
-        </form>
+        <div class="content">
+            <h1>Add task</h1>
+            <form method="POST" action="addtask">
+                <input type="text" name="name" placeholder="Name"><br>
+                <input type="text" name="description" placeholder="Description"><br>
+                <input type="text" name="picture" placeholder="Picture"><br>
+                <input type="submit">
+            </form>
+        </div>
     ';
 }
 
@@ -18,7 +22,7 @@ foreach ($list as $id => $task) {
     $name = $task["name"];
     $pict = $task["picture"];
     echo "
-        <div>
+        <div class='content'>
             <a href='task?id=$id'>
                 <h1>$id: $name</h1>
                 <img src='$pict' alt='$pict'>
@@ -26,3 +30,7 @@ foreach ($list as $id => $task) {
         </div>
     ";
 }
+
+?>
+
+</main>
