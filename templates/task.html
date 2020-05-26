@@ -1,0 +1,11 @@
+<h1><?php echo $res[1]["name"] ?></h1>
+<p><?php echo $res[1]["description"] ?></p>
+<img src="<?php echo $res[1]['picture'] ?>" alt="not.png">
+<hr>
+<h2>Send solution</h2>
+<form action="sendsolution" method="POST">
+	<input type="text" name="html" placeholder="HTML">
+	<input type="text" name="css" placeholder="CSS">
+	<input type="submit">
+	<input type="hidden" name="task_id" value="<?php echo $id ?>">
+</form>

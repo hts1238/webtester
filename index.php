@@ -4,7 +4,7 @@
 
 include_once("functions.php");
 
-if (!isset($_COOKIE["session"]) || !checksession($_COOKIE["session"])) {
+if (!isset($_COOKIE["session"]) || !isset($_COOKIE["login"]) || !checksession($_COOKIE["login"], $_COOKIE["session"])) {
     header("Location: login");
 }
 else {
