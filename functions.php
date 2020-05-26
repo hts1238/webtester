@@ -170,3 +170,33 @@ function sendsolution(&$login, &$id, &$html, &$css) {
 
     return [true, ""];
 }
+
+function getsolution(&$task_id) {
+    $db = connect();
+
+    $sql = "SELECT id, login, html, css, status FROM webtester_solutions WHERE task_id='$task_id'";
+    $sql_result = mysqli_query($db, $sql);
+
+    if (!$sql_result) {
+        return [false, mysqli_error($db)];
+    }
+
+    $result = mysqli_fetch_all($sql_result);
+
+    $res = [];
+    for ($i = 0; $i < count($result); $i++) {
+        $id = $result[$i][0];
+        $login = $result[$i][1];
+        $html = $result[$i][2];
+        $css = $result[$i][3];
+        $status = $result[$i][4];
+        $res[$id] = [
+            "login" => $login,
+            "html" => $html,
+            "css" => $css,
+            "status" => $status,
+        ];
+    }
+
+    return [true, $res];
+}

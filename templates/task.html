@@ -1,11 +1,38 @@
 <h1><?php echo $res[1]["name"] ?></h1>
 <p><?php echo $res[1]["description"] ?></p>
-<img src="<?php echo $res[1]['picture'] ?>" alt="not.png">
+<img src="<?php echo $res[1]['picture'] ?>" alt="<?php echo $res[1]['picture'] ?>">
 <hr>
 <h2>Send solution</h2>
 <form action="sendsolution" method="POST">
-	<input type="text" name="html" placeholder="HTML">
-	<input type="text" name="css" placeholder="CSS">
-	<input type="submit">
-	<input type="hidden" name="task_id" value="<?php echo $id ?>">
+    <input type="text" name="html" placeholder="HTML">
+    <input type="text" name="css" placeholder="CSS">
+    <input type="submit">
+    <input type="hidden" name="task_id" value="<?php echo $id ?>">
 </form>
+
+<?php
+
+if ($login == "admin") {
+    echo "
+        <hr>
+        <h1>Check solutions</h1>
+    ";
+
+    foreach ($resa as $id => $solution) {
+        $user_login = $solution["login"];
+        $html = $solution["html"];
+        $css = $solution["css"];
+        $status = $solution["status"];
+        echo "
+            <div>
+                <h2>$id: $user_login</h2>
+                <iframe srcdoc='
+                    <style>$css</style>
+                    $html
+                ''></iframe>
+            </div>
+        ";
+    }
+}
+
+?>
