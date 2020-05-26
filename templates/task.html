@@ -10,12 +10,56 @@
     <input type="hidden" name="task_id" value="<?php echo $id ?>">
 </form>
 
+<style>
+    span.status0::before {
+        content: "Waiting...";
+    }
+    span.status1::before {
+        content: "Fully incorrect!";
+    }
+    span.status2::before {
+        content: "Correct only HTML";
+    }
+    span.status3::before {
+        content: "Correct only CSS";
+    }
+    span.status4::before {
+        content: "Fully correct!";
+    }
+</style>
+<script src="libraries/jquery.min.js"></script>
+<script>
+    function changestatus(id, code) {
+        $.ajax({
+        type: "POST",
+        url: "changestatus",
+        data: {
+            "id": id,
+            "code": code,
+        },
+        beforeSend: function() {
+            console.log([id, code]);
+        },
+        success: function(data) {
+            console.log(data);
+            $("div#div"+id+" span").attr("class", "status"+code);
+        },
+        error: function(error) {
+            console.error(error);
+        },
+        complete: function() {
+        },
+    });
+    }
+</script>
+
 <?php
 
 if ($login == "admin") {
     echo "
         <hr>
         <h1>Check solutions</h1>
+        <div style='display: flex; flex-direction: column-reverse;'>
     ";
 
     foreach ($resa as $id => $solution) {
@@ -24,15 +68,46 @@ if ($login == "admin") {
         $css = $solution["css"];
         $status = $solution["status"];
         echo "
-            <div>
-                <h2>$id: $user_login</h2>
+            <div id='div$id'>
+                <h2>$user_login</h2>
+                <h3>Status: <span class='status$status'></span></h3>
+                <div class='buttons'>
+                    <button onclick='changestatus($id, 1)' class='button1'>Fully incorrects!</button>
+                    <button onclick='changestatus($id, 2)' class='button2'>Correct only HTML</button>
+                    <button onclick='changestatus($id, 3)' class='button3'>Correct only CSS</button>
+                    <button onclick='changestatus($id, 4)' class='button4'>Fully correct!</button>
+                </div>
                 <iframe srcdoc='
                     <style>$css</style>
                     $html
-                ''></iframe>
+                '></iframe>
             </div>
         ";
     }
+
+    echo "</div>";
+}
+else {
+    echo "
+        <hr>
+        <h1>Your solutions</h1>
+    ";
+
+    foreach (array_reverse($resa) as $id => $solution) {
+        if ($login == $solution["login"]) {
+            $html = $solution["html"];
+            $css = $solution["css"];
+            $status = $solution["status"];
+            echo "
+                <div>
+                    <h2>Status: <span class='status$status'></span></h2>
+                    <iframe srcdoc='
+                        <style>$css</style>
+                        $html
+                    ''></iframe>
+                </div>
+            ";
+        }
+    }
 }
 
-?>

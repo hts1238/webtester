@@ -200,3 +200,16 @@ function getsolution(&$task_id) {
 
     return [true, $res];
 }
+
+function changestatus(&$id, &$code) {
+    $db = connect();
+
+    $sql = "UPDATE webtester_solutions SET status=$code WHERE id=$id";
+    $sql_result = mysqli_query($db, $sql);
+
+    if (!$sql_result) {
+        return [false, mysqli_error($db)];
+    }
+
+    return [true, $sql];
+}

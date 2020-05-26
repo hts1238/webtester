@@ -16,14 +16,12 @@ else if (isset($_GET["id"])) {
         echo "Error: " . $res[1];
     }
     else {
-        if ($login == "admin") {
-            $resa = getsolution($id);
-            if (!$resa[0]) {
-                echo "Error: " . $res[1];
-            }
-            else {
-                $resa = $resa[1];
-            }
+        $resa = getsolution($id);
+        if (!$resa[0]) {
+            echo "Error: " . $res[1];
+        }
+        else {
+            $resa = $resa[1];
         }
         include_once("templates/task.html");
     }
