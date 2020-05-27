@@ -24,11 +24,11 @@ else if (($_POST["type"] ?? "") == "new") {
 
         $res = signup($name, $login, $password);
 
-        if (!$res) {
-            header("Location: login?error=error");
+        if (!$res[0]) {
+            header("Location: login?error=".$res[1]);
             exit();
         }
-        else {
+        else {  
             header("Location: index");
             exit();
         }

@@ -11,14 +11,28 @@ else if ($_COOKIE["login"] != "admin") {
     header("Location: index");
 }
 else {
-    if (!isset($_POST["name"]) || !isset($_POST["description"]) || !isset($_POST["picture"])) {
+    if (!isset($_POST["name"]) || !isset($_POST["description"]) || !isset($_FILES["picture"])) {
         echo "Not found all args";
+        exit();
     }
-    $res = addtask($_POST["name"], $_POST["description"], $_POST["picture"]);
+
+    $uploaddir = 'pictures/';
+    $uploadfile = $uploaddir . basename($_FILES['picture']['name']);
+    $mv_res = move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile);
+
+    if (!$mv_res) {
+        echo "Error! " . $_FILES['picture']['error'];
+        print_r($_FILES);
+        exit();
+    }
+
+
+    $res = addtask($_POST["name"], $_POST["description"], $uploadfile);
     if (!$res[0]) {
         echo "Error: " . $res[1];
+        exit();
     }
-    else {
-        header("Location: tasks");
-    }
+
+    header("Location: tasks");
+    
 }

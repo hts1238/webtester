@@ -1,3 +1,5 @@
+@import url('../fonts/Montserrat.css');
+
 body {
     display: flex;
     flex-direction: column;
@@ -7,12 +9,32 @@ body {
     align-items: stretch;
     justify-content: space-between;
     background-color: #eef;
+
+    font-family: "Montserrat", sans-serif;
 }
 
 header {
     background-color: #fff;
-    box-shadow: 0 0 30px #0002;
+    box-shadow: 0 0 30px #00f2;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+}
+
+header a {
+    color: #005;
+    text-decoration: none;
+}
+
+header a:hover {
+    color: #00f;
 }
 
 footer {

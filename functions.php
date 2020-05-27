@@ -17,11 +17,6 @@ function connect() {
     return $db;
 }
 
-function showerrors() {
-    //echo $errors;
-    return "";
-}
-
 function checksession(&$login, &$session) {
     $db = connect();
 
@@ -90,14 +85,25 @@ function login(&$login, &$password) {
 function signup(&$name, &$login, &$password) {
     $db = connect();
 
+    $sql = "SELECT id FROM webtester_users WHERE login='$login'";
+    $sql_result = mysqli_query($db, $sql);
+
+    if (!$sql_result) {
+        return [false, mysqli_error($db)];
+    }
+
+    if (count(mysqli_fetch_assoc($sql_result)) > 0) {
+        return [false, "The login is alredy exist"];
+    }
+
     $sql = "INSERT INTO webtester_users(name, login, password) VALUES ('$name', '$login', '$password')";
     $sql_result = mysqli_query($db, $sql);
 
     if (!$sql_result) {
-        return false; // mysqli_error($db);
+        return [false, mysqli_error($db)];
     }
 
-    return true;
+    return [true, ""];
 }
 
 function getlistoftasks() {
