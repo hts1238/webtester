@@ -112,3 +112,36 @@ form[action=addtask] > * {
 form[action=addtask] > textarea {
 	height: 20vh;
 }
+
+div.code {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	width: 100%;
+}
+
+div.code-html, div.code-css {
+	position: relative;
+	border: 1px solid #88f;
+	border-radius: 10px;
+	padding: 5px;
+	padding-top: 30px;
+	margin: 5px;
+	overflow: auto;
+}
+
+div.code-html::after {
+	content: "HTML code";
+}
+
+div.code-css::after {
+	content: "CSS code";
+}
+
+div.code-html::after, div.code-css::after {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    z-index: 99;
+    text-decoration: underline;
+    color: #008;
+}

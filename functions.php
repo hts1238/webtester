@@ -177,6 +177,59 @@ function sendsolution(&$login, &$id, &$html, &$css) {
     return [true, ""];
 }
 
+function getnamebylogin(&$login) {
+    $db = connect();
+
+    $sql = "SELECT name FROM webtester_users WHERE login='$login'";
+    $sql_result = mysqli_query($db, $sql);
+
+    if (!$sql_result) {
+        return [false, mysqli_error($db)];
+    }
+
+    $result = mysqli_fetch_assoc($sql_result);
+
+    if (!isset($result)) {
+        return [false, "login $login does not exist"];
+    }
+
+    return [true, $result["name"]];
+}
+
+function modifyhtmlcode($html) {
+    $res = "";
+    for ($i = 0; $i < strlen($html); $i++) {
+        $ch = $html[$i];
+        if (ord($ch) == 10) {
+            $res .= "<br>";
+        }
+        else if ($ch == "<") {
+            $res .= "&#60;";
+        }
+        else if ($ch == ">") {
+            $res .= "&#62;";
+        }
+        else {
+            $res .= $ch;
+        }
+    }
+    return $res;
+}
+
+function modifycsscode($css) {
+    $res = "";
+    for ($i = 0; $i < strlen($css); $i++) {
+        $ch = $css[$i];
+        if (ord($ch) == 10) {
+            $res .= "<br>";
+        }
+        else {
+            $res .= $ch;
+        }
+    }
+    return $res;
+}
+
 function getsolution(&$task_id) {
     $db = connect();
 
@@ -193,14 +246,20 @@ function getsolution(&$task_id) {
     for ($i = 0; $i < count($result); $i++) {
         $id = $result[$i][0];
         $login = $result[$i][1];
+        $name = getnamebylogin($login)[1];
         $html = $result[$i][2];
+        $mod_html = modifyhtmlcode($html);
         $css = $result[$i][3];
+        $mod_css = modifycsscode($css);
         $status = $result[$i][4];
         $res[$id] = [
             "login" => $login,
             "html" => $html,
+            "mod_html" => $mod_html,
             "css" => $css,
+            "mod_css" => $mod_css,
             "status" => $status,
+            "name" => $name,
         ];
     }
 

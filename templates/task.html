@@ -72,12 +72,15 @@
 
             foreach ($resa as $id => $solution) {
                 $user_login = $solution["login"];
+                $name = $solution["name"];
                 $html = $solution["html"];
+                $mod_html = $solution["mod_html"];
                 $css = $solution["css"];
+                $mod_css = $solution["mod_css"];
                 $status = $solution["status"];
                 echo "
                     <div class='solution' id='div$id'>
-                        <h2>$user_login</h2>
+                        <h2>$name <i>($user_login)</i></h2>
                         <h3>Status: <span class='status$status'></span></h3>
                         <div class='buttons'>
                             <button onclick='changestatus($id, 1)' class='button1'>Fully incorrects!</button>
@@ -89,6 +92,10 @@
                             <style>$css</style>
                             $html
                         '></iframe>
+                        <div class='code'>
+                            <div class='code-html'>$mod_html</div>
+                            <div class='code-css'>$mod_css</div>
+                        </div>
                     </div>
                 ";
             }
@@ -106,7 +113,9 @@
             foreach (array_reverse($resa) as $id => $solution) {
                 if ($login == $solution["login"]) {
                     $html = $solution["html"];
+                    $mod_html = $solution["mod_html"];
                     $css = $solution["css"];
+                    $mod_css = $solution["mod_css"];
                     $status = $solution["status"];
                     echo "
                         <div class='solution'>
@@ -115,6 +124,10 @@
                                 <style>$css</style>
                                 $html
                             '></iframe>
+                            <div class='code'>
+                                <div class='code-html'>$mod_html</div>
+                                <div class='code-css'>$mod_css</div>
+                            </div>
                         </div>
                     ";
                 }
