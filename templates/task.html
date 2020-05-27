@@ -49,7 +49,7 @@
             },
             success: function(data) {
                 console.log(data);
-                $("div#div"+id+" span").attr("class", "status"+code);
+                $("div#div"+id+" span.status").attr("class", "status status"+code);
             },
             error: function(error) {
                 console.error(error);
@@ -81,7 +81,7 @@
                 echo "
                     <div class='solution' id='div$id'>
                         <h2>$name <i>($user_login)</i></h2>
-                        <h3>Status: <span class='status$status'></span></h3>
+                        <h3>Status: <span class='status status$status'></span></h3>
                         <div class='buttons'>
                             <button onclick='changestatus($id, 1)' class='button1'>Fully incorrects!</button>
                             <button onclick='changestatus($id, 2)' class='button2'>Correct only HTML</button>
