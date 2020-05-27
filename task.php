@@ -25,6 +25,15 @@ else if (isset($_GET["id"])) {
         else {
             $resa = $resa[1];
         }
+        if ($login != "admin") {
+            $resq = $resa;
+            $resa = [];
+            foreach ($resq as $key => $value) {
+                if ($value["login"] == $login) {
+                    $resa[$key] = $value;
+                }
+            }
+        }
         include_once("templates/task.html");
     }
 }
