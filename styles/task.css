@@ -127,6 +127,8 @@ div.code-html, div.code-css {
 	padding-top: 30px;
 	margin: 5px;
 	overflow: auto;
+	font-family: monospace;
+    font-size: 1.2em;
 }
 
 div.code-html::after {
@@ -144,4 +146,10 @@ div.code-html::after, div.code-css::after {
     z-index: 99;
     text-decoration: underline;
     color: #008;
+}
+
+span.space {
+	display: inline-block;
+	width: .6em;
+	height: .1em;
 }

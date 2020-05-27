@@ -209,6 +209,9 @@ function modifyhtmlcode($html) {
         else if ($ch == ">") {
             $res .= "&#62;";
         }
+        else if (ord($ch) == 32) {
+            $res .= "<span class='space'> </span>";
+        }
         else {
             $res .= $ch;
         }
@@ -222,6 +225,9 @@ function modifycsscode($css) {
         $ch = $css[$i];
         if (ord($ch) == 10) {
             $res .= "<br>";
+        }
+        else if (ord($ch) == 32) {
+            $res .= "<span class='space'> </span>";
         }
         else {
             $res .= $ch;
