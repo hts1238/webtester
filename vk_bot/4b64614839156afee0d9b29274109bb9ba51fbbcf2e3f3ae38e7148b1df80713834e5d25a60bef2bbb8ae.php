@@ -1,6 +1,6 @@
 <?php
 
-$event_id = $_POST["event_id"] ?? "smt wrong";
+$event_id = print_r($_POST, true);
 
 $f = fopen("output.txt", "a");
 
