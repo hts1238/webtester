@@ -1,3 +1,9 @@
 <?php
 
-echo "4a0a70b1";
+<?php
+
+$event_id = $_POST["event_id"] ?? "smt wrong";
+
+$f = fopen("output.txt", "a");
+
+fwrite($f, $event_id."\n");
