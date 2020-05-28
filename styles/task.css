@@ -119,7 +119,7 @@ div.code {
 	width: 100%;
 }
 
-div.code-html, div.code-css {
+.code-html, .code-css {
 	position: relative;
 	border: 1px solid #88f;
 	border-radius: 10px;
@@ -129,17 +129,22 @@ div.code-html, div.code-css {
 	overflow: auto;
 	font-family: monospace;
     font-size: 1.2em;
+    box-shadow: none;
 }
 
-div.code-html::after {
+.code-html:focus, .code-css:focus {
+	outline: none;
+}
+
+.code-html::after {
 	content: "HTML code";
 }
 
-div.code-css::after {
+.code-css::after {
 	content: "CSS code";
 }
 
-div.code-html::after, div.code-css::after {
+.code-html::after, .code-css::after {
     position: absolute;
     top: 5px;
     left: 10px;
