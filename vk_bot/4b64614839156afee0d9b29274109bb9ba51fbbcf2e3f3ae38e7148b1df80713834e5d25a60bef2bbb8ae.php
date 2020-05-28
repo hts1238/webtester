@@ -1,6 +1,8 @@
 <?php
 
-$event_id = print_r(json_decode(file_get_contents('php://input'), true));
+$data = json_decode(file_get_contents('php://input'));
+
+$event_id = $data->type;
 
 $f = fopen("output.txt", "a");
 
