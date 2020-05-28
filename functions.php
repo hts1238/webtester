@@ -197,21 +197,22 @@ function getnamebylogin(&$login) {
 }
 
 function modifyhtmlcode($html) {
+    //return $html;
     $res = "";
     for ($i = 0; $i < strlen($html); $i++) {
         $ch = $html[$i];
-        if (ord($ch) == 10) {
+        /*if (ord($ch) == 10) {
             $res .= "<br>";
         }
-        else if ($ch == "<") {
+        else*/ if ($ch == "<") {
             $res .= "&#60;";
         }
         else if ($ch == ">") {
             $res .= "&#62;";
         }
-        else if (ord($ch) == 32) {
+        /*else if (ord($ch) == 32) {
             $res .= "<span class='space'> </span>";
-        }
+        }*/
         else {
             $res .= $ch;
         }
@@ -220,15 +221,16 @@ function modifyhtmlcode($html) {
 }
 
 function modifycsscode($css) {
+    return $css;
     $res = "";
     for ($i = 0; $i < strlen($css); $i++) {
         $ch = $css[$i];
         if (ord($ch) == 10) {
             $res .= "<br>";
         }
-        else if (ord($ch) == 32) {
+        /*else if (ord($ch) == 32) {
             $res .= "<span class='space'> </span>";
-        }
+        }*/
         else {
             $res .= $ch;
         }
