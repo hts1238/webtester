@@ -1,6 +1,6 @@
 <?php
 
-$event_id = print_r(json_decode(file_get_contents('php: // input'), true));
+$event_id = print_r($_REQUEST);
 
 $f = fopen("output.txt", "a");
 
