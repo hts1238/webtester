@@ -2,7 +2,7 @@
 
 $data = json_decode(file_get_contents('php://input'));
 
-$event_id = $data->type;
+$event_id = print_r($data, true);
 
 $f = fopen("output.txt", "a");
 
