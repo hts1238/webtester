@@ -50,6 +50,7 @@
             success: function(data) {
                 console.log(data);
                 $("div#div"+id+" span.status").attr("class", "status status"+code);
+                $("div#div"+id+" span.pin").attr("class", "pin pin"+code);
             },
             error: function(error) {
                 console.error(error);
@@ -81,7 +82,7 @@
                 echo "
                     <div class='solution' id='div$id'>
                         <h2>$name <i>($user_login)</i></h2>
-                        <h3>Status: <span class='status status$status'></span></h3>
+                        <h3>Status: <span class='status status$status'></span> <span class='pin pin$status'></span></h3>
                         <div class='buttons'>
                             <button onclick='changestatus($id, 1)' class='button1'>Fully incorrects!</button>
                             <button onclick='changestatus($id, 2)' class='button2'>Correct only HTML</button>
@@ -119,7 +120,7 @@
                     $status = $solution["status"];
                     echo "
                         <div class='solution'>
-                            <h2>Status: <span class='status$status'></span></h2>
+                            <h2>Status: <span class='status$status'></span> <span class='pin pin$status'></span></h2>
                             <iframe srcdoc='
                                 <style>$css</style>
                                 $html

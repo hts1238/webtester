@@ -11,7 +11,7 @@ if (!isset($_COOKIE["session"]) || !isset($_COOKIE["login"]) || !checksession($_
 }
 else {
     $login = $_COOKIE["login"];
-    $tasks = getlistoftasks();
+    $tasks = getlistoftasks($login);
     if ($tasks[0]) {
         $list = $tasks[1];
         $error = "";

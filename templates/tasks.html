@@ -21,10 +21,11 @@ if ($login == "admin") {
 foreach ($list as $id => $task) {
     $name = $task["name"];
     $pict = $task["picture"];
+    $status = $task["status"];
     echo "
         <div class='content'>
             <a href='task?id=$id'>
-                <h1>$name</h1>
+                <h1>$name <span class='$status'></span></h1>
                 <img class='little' src='$pict' alt='$pict'>
             </a>
         </div>

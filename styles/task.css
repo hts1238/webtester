@@ -158,3 +158,63 @@ span.space {
 	width: .6em;
 	height: .1em;
 }
+
+span.correct,
+span.waiting,
+span.incorrect,
+span.pin {
+	display: inline-block;
+	position: relative;
+	width: 1em;
+	height: 1em;
+	border-radius: 50%;
+	top: .2em;
+}
+
+span.correct,
+span.pin4 {
+	background-color: #0f0;
+}
+
+span.waiting,
+span.pin0 {
+	background-color: #ff0;
+}
+
+span.incorrect,
+span.pin1,
+span.pin2,
+span.pin3 {
+	background-color: #f00;
+}
+
+span.correct::after,
+span.waiting::after,
+span.incorrect::after,
+span.pin::after {
+	font-size: .8em;
+	line-height: .8em;
+	position: absolute;
+	top: .25em;
+	left: .2em;
+}
+
+span.correct::after,
+span.pin4::after {
+	content: "✓";
+}
+
+span.waiting::after,
+span.pin0::after {
+	content: "...";
+	font-size: .6em;
+	top: .4em;
+	left: .4em;
+}
+
+span.incorrect::after,
+span.pin1::after,
+span.pin2::after,
+span.pin3::after {
+	content: "⨯";
+}

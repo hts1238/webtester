@@ -17,8 +17,10 @@ function connect() {
     return $db;
 }
 
+$db = connect();
+
 function checksession(&$login, &$session) {
-    $db = connect();
+    global $db;
 
     $sql = "SELECT login FROM webtester_connects WHERE session='$session'";
     $sql_result = mysqli_query($db, $sql);
@@ -54,7 +56,7 @@ function gettoken() {
 }
 
 function login(&$login, &$password) {
-    $db = connect();
+    global $db;
 
     $sql = "SELECT password FROM webtester_users WHERE login='$login'";
     $sql_result = mysqli_query($db, $sql);
@@ -83,7 +85,7 @@ function login(&$login, &$password) {
 }
 
 function signup(&$name, &$login, &$password) {
-    $db = connect();
+    global $db;
 
     $sql = "SELECT id FROM webtester_users WHERE login='$login'";
     $sql_result = mysqli_query($db, $sql);
@@ -106,8 +108,8 @@ function signup(&$name, &$login, &$password) {
     return [true, ""];
 }
 
-function getlistoftasks() {
-    $db = connect();
+function getlistoftasks($login) {
+    global $db;
 
     $sql = "SELECT id, name, picture FROM webtester_tasks";
     $sql_result = mysqli_query($db, $sql);
@@ -123,17 +125,63 @@ function getlistoftasks() {
         $id = $result[$i][0];
         $name = $result[$i][1];
         $pict = $result[$i][2];
+
+        $status = getTaskStatus($login, $id);
+        if (!$status[0]) {
+            return $status;
+        }
+        $status = $status[1];
+
         $res[$id] = [
             "name" => $name,
             "picture" => $pict,
+            "status" => $status,
         ];
     }
 
     return [true, $res];
 }
 
+function getTaskStatus($login, $task_id) {
+    global $db;
+
+    $sql = "SELECT status FROM webtester_solutions WHERE task_id='$task_id' AND login='$login'";
+    $sql_result = mysqli_query($db, $sql);
+
+    if (!$sql_result) {
+        return [false, mysqli_error($db)];
+    }
+
+    $result = mysqli_fetch_all($sql_result);
+
+    if (count($result) == 0) {
+        return [true, ""];
+    }
+
+    $res = 1;
+    $is_waiting = false;
+    $is_correct = false;
+    for ($i = 0; $i < count($result); $i++) {
+        if ($result[$i][0] == 0) {
+            $is_waiting = true;
+        }
+        if ($result[$i][0] == 4) {
+            $is_correct = true;
+        }
+    }
+
+    if ($is_correct) {
+        return [true, "correct"];
+    }
+    if ($is_waiting) {
+        return [true, "waiting"];
+    }
+
+    return [true, "incorrect"];
+}
+
 function gettask(&$id) {
-    $db = connect();
+    global $db;
 
     $sql = "SELECT name, description, picture FROM webtester_tasks WHERE id='$id'";
     $sql_result = mysqli_query($db, $sql);
@@ -152,7 +200,7 @@ function gettask(&$id) {
 }
 
 function addtask(&$name, &$description, &$picture) {
-    $db = connect();
+    global $db;
 
     $sql = "INSERT INTO webtester_tasks(name, description, picture) VALUES ('$name', '$description', '$picture')";
     $sql_result = mysqli_query($db, $sql);
@@ -165,7 +213,7 @@ function addtask(&$name, &$description, &$picture) {
 }
 
 function sendsolution(&$login, &$id, &$html, &$css) {
-    $db = connect();
+    global $db;
 
     $sql = "INSERT INTO webtester_solutions(task_id, login, html, css, status) VALUES ($id, '$login', '$html', '$css', 0)";
     $sql_result = mysqli_query($db, $sql);
@@ -178,7 +226,7 @@ function sendsolution(&$login, &$id, &$html, &$css) {
 }
 
 function getnamebylogin(&$login) {
-    $db = connect();
+    global $db;
 
     $sql = "SELECT name FROM webtester_users WHERE login='$login'";
     $sql_result = mysqli_query($db, $sql);
@@ -197,22 +245,15 @@ function getnamebylogin(&$login) {
 }
 
 function modifyhtmlcode($html) {
-    //return $html;
     $res = "";
     for ($i = 0; $i < strlen($html); $i++) {
         $ch = $html[$i];
-        /*if (ord($ch) == 10) {
-            $res .= "<br>";
-        }
-        else*/ if ($ch == "<") {
+        if ($ch == "<") {
             $res .= "&#60;";
         }
         else if ($ch == ">") {
             $res .= "&#62;";
         }
-        /*else if (ord($ch) == 32) {
-            $res .= "<span class='space'> </span>";
-        }*/
         else {
             $res .= $ch;
         }
@@ -228,9 +269,6 @@ function modifycsscode($css) {
         if (ord($ch) == 10) {
             $res .= "<br>";
         }
-        /*else if (ord($ch) == 32) {
-            $res .= "<span class='space'> </span>";
-        }*/
         else {
             $res .= $ch;
         }
@@ -239,7 +277,7 @@ function modifycsscode($css) {
 }
 
 function getsolution(&$task_id) {
-    $db = connect();
+    global $db;
 
     $sql = "SELECT id, login, html, css, status FROM webtester_solutions WHERE task_id='$task_id'";
     $sql_result = mysqli_query($db, $sql);
@@ -275,7 +313,7 @@ function getsolution(&$task_id) {
 }
 
 function changestatus(&$id, &$code) {
-    $db = connect();
+    global $db;
 
     $sql = "UPDATE webtester_solutions SET status=$code WHERE id=$id";
     $sql_result = mysqli_query($db, $sql);
